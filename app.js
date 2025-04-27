@@ -156,7 +156,7 @@ app.post("/signup", async (req, res) => {
     const registeredUser = await User.register(newUser, password);
 
     req.flash("success", "Signup successful! Please log in.");
-    res.redirect("/login");
+    res.redirect("/");
   } catch (err) {
     console.error(err);
     req.flash("error", "Signup failed. Please try again.");
