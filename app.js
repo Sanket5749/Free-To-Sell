@@ -140,7 +140,7 @@ app.get(
   }),
   (req, res) => {
     req.flash("success", "Successfully logged in with Google!");
-    res.redirect("/listings");
+    res.redirect("/");
   }
 );
 
@@ -176,7 +176,7 @@ app.post(
   }),
   (req, res) => {
     req.flash("success", "You are Successfully Logged In");
-    res.redirect("/listings");
+    res.redirect("/");
   }
 );
 app.post("/logout", isLoggedIn, (req, res) => {
@@ -185,7 +185,7 @@ app.post("/logout", isLoggedIn, (req, res) => {
       return next(err);
     }
     req.flash("success", "You have been logged out!");
-    res.redirect("/listings");
+    res.redirect("/");
   });
 });
 
@@ -211,7 +211,7 @@ app.get("/listings/:id", async (req, res) => {
   res.render("show.ejs", { listing });
 });
 app.post(
-  "/listings",
+  "/",
   isLoggedIn,
   upload.single("listing[image]"),
   async (req, res) => {
@@ -246,7 +246,7 @@ app.put(
       const listing = await Listing.findById(id);
       if (!listing) {
         req.flash("error", "Product not found!");
-        return res.redirect("/listings");
+        return res.redirect("/");
       }
       const updatedData = { ...req.body.listing };
       if (req.file) {
@@ -269,7 +269,7 @@ app.put(
 app.delete("/listings/:id", isLoggedIn, async (req, res) => {
   let { id } = req.params;
   let deletedListing = await Listing.findByIdAndDelete(id);
-  res.redirect("/listings");
+  res.redirect("/");
 });
 
 app.post("/listings/:id/reviews", isLoggedIn, async (req, res) => {
