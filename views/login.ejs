@@ -1,0 +1,61 @@
+<%- layout("boilerplate.ejs") %>
+
+<div
+  class="auth-container container-fluid d-flex align-items-center justify-content-center"
+>
+  <div
+    class="auth-form-container col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 mx-auto"
+  >
+    <h2 class="auth-title text-center mb-4">Login</h2>
+    <form action="/login" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          name="username"
+          required
+        />
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+      <p class="text-center mb-3">OR</p>
+      <a href="/auth/google" class="btn btn-danger w-100 mb-3"
+        >Login with Google</a
+      >
+      <p class="text-center mb-0">
+        Don't have an account? <a href="/signup" class="auth-link">Sign up</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<script>
+  (() => {
+    "use strict";
+    const forms = document.querySelectorAll(".needs-validation");
+    Array.from(forms).forEach((form) => {
+      form.addEventListener(
+        "submit",
+        (event) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
+</script>

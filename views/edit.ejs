@@ -1,0 +1,66 @@
+<%= layout("boilerplate.ejs") %>
+
+<div class="container my-4">
+  <h1 class="text-center mb-4">Edit Product</h1>
+  <form
+    method="POST"
+    action="/listings/<%= listing._id %>?_method=PUT"
+    enctype="multipart/form-data"
+    class="mx-auto"
+    style="max-width: 600px"
+  >
+    <div class="mb-3">
+      <label for="listingTitle" class="form-label">Enter Product</label>
+      <input
+        type="text"
+        class="form-control"
+        id="listingTitle"
+        name="listing[title]"
+        value="<%= listing.title %>"
+        required
+        placeholder="Enter Product Name"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="listingImage" class="form-label">Upload New Image</label>
+      <input
+        type="file"
+        class="form-control"
+        id="listingImage"
+        name="listing[image]"
+        value="<%= listing.image.url %>"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="listingDescription" class="form-label"
+        >Enter Description</label
+      >
+      <textarea
+        class="form-control"
+        id="listingDescription"
+        rows="3"
+        name="listing[description]"
+        required
+        placeholder="A brief description about your Product."
+      >
+<%= listing.description %></textarea
+      >
+    </div>
+    <div class="mb-3">
+      <label for="listingPrice" class="form-label">Enter Price</label>
+      <input
+        type="number"
+        class="form-control"
+        id="listingPrice"
+        name="listing[price]"
+        required
+        value="<%= listing.price %>"
+        placeholder="e.g., 1500"
+      />
+    </div>
+
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </div>
+  </form>
+</div>

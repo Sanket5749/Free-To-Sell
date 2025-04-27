@@ -1,0 +1,30 @@
+<%- layout("boilerplate.ejs") %>
+<% if (currentUser) { %>
+  <div class="user-info d-flex flex-row container" href="/listings">
+    <div class="profile-pic"><%= pic %></div>
+    <p class="text-pic"><%= user %></p>
+  </div>
+  <% } %>
+<div class="container mt-3">
+  <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 g-4">
+    <% for(let listing of allListing) { %>
+    <a href="/listings/<%= listing._id %>" class="listing-link text-dark">
+      <div class="card col">
+        <div class="card h-100 shadow-sm">
+          <img
+            src="<%= listing.image.url %>"
+            class="card-img-top"
+            alt="listing_img"
+          />
+          <div class="card-body text-center">
+            <p class="card-text fs-5 fw-bold text-dark"><%= listing.title %></p>
+            <p class="card-text fs-5 fw-bold text-dark">
+              ₹ <%= listing.price.toLocaleString("en-IN") %> / only
+            </p>
+          </div>
+        </div>
+      </div>
+    </a>
+    <% } %>
+  </div>
+</div>
