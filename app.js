@@ -189,7 +189,7 @@ app.post("/logout", isLoggedIn, (req, res) => {
   });
 });
 
-app.get("/listings", isLoggedIn,async (req, res) => {
+app.get("/", isLoggedIn,async (req, res) => {
   const pic = req.user.username.charAt(0);
   const user = req.user.username;
   const allListing = await Listing.find({});
