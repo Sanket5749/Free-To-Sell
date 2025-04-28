@@ -208,7 +208,8 @@ app.get("/listings/:id", async (req, res) => {
       },
     })
     .populate("owner");
-  res.render("show.ejs", { listing });
+  const pay = process.env.RAZORPAY_KEY_ID;  
+  res.render("show.ejs", { listing, pay });
 });
 app.post(
   "/",
@@ -241,7 +242,11 @@ app.put(
   upload.single("listing[image]"),
   async (req, res) => {
     const { id } = req.params;
-
+    let listing = await Listing.findById(id);
+    if(!listing.owner._id.equals(res.locals.currentUser._id)){
+      req.flash("error", "You don't have Permission to Edit.");
+      return res.redirect(`/listings/${id}`);
+    }
     try {
       const listing = await Listing.findById(id);
       if (!listing) {
@@ -268,6 +273,11 @@ app.put(
 );
 app.delete("/listings/:id", isLoggedIn, async (req, res) => {
   let { id } = req.params;
+  let listing = await Listing.findById(id);
+  if(!listing.owner._id.equals(res.locals.currentUser._id)){
+    req.flash("error", "You don't have Permission to Delete.");
+    return res.redirect(`/listings/${id}`);
+  }
   let deletedListing = await Listing.findByIdAndDelete(id);
   res.redirect("/");
 });
@@ -287,11 +297,27 @@ app.delete("/listings/:id/reviews/:reviewId", isLoggedIn, async (req, res) => {
   let { id, reviewId } = req.params;
   let review = await Review.findById(reviewId);
   if (!review.author.equals(res.locals.currentUser._id)) {
-    req.flash("error", "You are not the author of this review");
-    res.redirect(`/listings/${id}`);
+    req.flash("error", "You are not the author of this review.");
+    return res.redirect(`/listings/${id}`);
   } else {
     await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
     res.redirect(`/listings/${id}`);
+  }
+});
+app.get("/listings/:id/cart/", isLoggedIn,async (req, res) => {
+  try {
+    const { id } = req.params;
+    const listing = await Listing.findById(id);
+
+    if (!listing) {
+      return res.status(404).send("Listing not found");
+    }
+
+    const listings = [listing];
+    res.render("cart.ejs", { listings });
+  } catch (error) {
+    console.error("Error:", error.message);
+    res.status(500).send("Internal Server Error");
   }
 });
