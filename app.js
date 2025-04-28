@@ -224,7 +224,7 @@ app.post(
       newListing.image = { url, filename };
       await newListing.save();
       req.flash("success", "New Product Created!");
-      res.redirect("/listings");
+      res.redirect("/");
     } catch (err) {
       req.flash("error", "Could not create Product. Please try again.");
       res.redirect("/listings/new");
