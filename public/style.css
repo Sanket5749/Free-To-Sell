@@ -1,8 +1,8 @@
 .navbar, footer{
-  background: url("back.jpg") !important;
-  background-size: cover !important;
-  background-attachment: fixed !important;
-  background-position: center !important;
+  background: url("back.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
 }
 body{
   background-color: transparent;
@@ -47,8 +47,7 @@ body{
 
 .navbar {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-bottom: 2px solid #f1f1f1;
-  background-color: #ffffff;
+  border-bottom: 1px solid #f1f1f1;
   padding: 10px 20px;
 }
 
@@ -66,8 +65,6 @@ body{
   color: #084298;
   transform: scale(1.1);
 }
-
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -93,4 +90,29 @@ body{
 .pay-btn{
   text-decoration: none;
   color: white;
+}
+
+.auth-form-container{
+  color: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  background: url(back_login.jpg);
+  background-position: center;
+  background-size: cover; 
+  background-repeat: no-repeat;
+}
+body {
+  padding: 25px;
+  background: url("e-com_light.webp");
+  background: white;
+  color: black;
+}
+
+.dark-mode {
+  background: url("e-com_dark.jpg");
+  background: black;
+  color: white;
+}
+.btn-tog{
+  border-radius: 1.5rem;
 }
