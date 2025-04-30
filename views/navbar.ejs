@@ -1,61 +1,46 @@
-<nav class="navbar navbar-expand-lg sticky-top">
+<nav class="navbar navbar-expand-lg  navbar-dark bg-dark shadow-lg py-3">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="/">
-            <img src="/logo.jpg" alt="Logo" height="40" class="me-2">
-            <span>FTC</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/products">
-                        <i class="fas fa-store me-1"></i> Products
-                    </a>
-                </li>
-                <% if(currentUser) { %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/products/new">
-                            <i class="fas fa-plus-circle me-1"></i> Sell
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/cart">
-                            <i class="fas fa-shopping-cart me-1"></i> Cart
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user me-1"></i> <%= currentUser.username %>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                            <li><a class="dropdown-item" href="/orders">Orders</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                        </ul>
-                    </li>
-                <% } else { %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">
-                            <i class="fas fa-sign-in-alt me-1"></i> Login
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signup">
-                            <i class="fas fa-user-plus me-1"></i> Signup
-                        </a>
-                    </li>
-                <% } %>
-            </ul>
-        </div>
+      <button onclick="myFunction()" class="btn-tog mx-3"><i class="fa-solid fa-moon"></i></button>
+      <a class="navbar-brand fw-bold text-light fs-4" href="/">Free To Sell</a>
+      <button
+        class="navbar-toggler border-0"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon text-light"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <% if (!currentUser) { %>
+          <li class="nav-item">
+            <a class="nav-link px-3 fw-semibold text-light hover-effect" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-warning text-dark rounded-pill px-4 py-2 shadow-lg" href="/signup">Sign Up</a>
+          </li>
+          <% } %>
+          <% if (currentUser) { %>
+          <li class="nav-item">
+            <a class="nav-link px-3 fw-semibold text-light hover-effect" href="/listings/new">New Product</a>
+          </li>
+          <li class="nav-item">
+            <form action="/logout" method="POST" class="m-0">
+              <button class="btn btn-warning rounded-pill px-4 py-2 shadow-lg">Logout</button>
+            </form>
+          </li>
+          <% } %>
+        </ul>
+      </div>
     </div>
-</nav>
-
-<script>
-  function myFunction() {
-  var element = document.body;
-  element.classList.toggle("dark-mode");
-}
-</script>
+  </nav>
+  
+  <script>
+    function myFunction() {
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+  }
+  </script>
